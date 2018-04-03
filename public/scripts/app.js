@@ -1,81 +1,38 @@
 'use strict';
 
-console.log('App.js is running!');
+console.log('Visibility Togle Running');
 
-var app = {
-  title: 'Indecision App',
-  subtitle: 'Put your life in the hands of a computer',
-  options: []
+var visibility = false;
+
+var toggleState = function toggleState() {
+    visibility = !visibility;
+    render();
 };
 
-var onFormSubmit = function onFormSubmit(e) {
-  e.preventDefault();
-
-  var option = e.target.elements.option.value;
-
-  if (option) {
-    app.options.push(option);
-    e.target.option.value = '';
-    renderApp();
-  }
-};
-var removeArray = function removeArray() {
-  app.options = [];
-  renderApp();
-};
 var appRoot = document.getElementById('app');
-var renderApp = function renderApp() {
-  var template = React.createElement(
-    'div',
-    null,
-    React.createElement(
-      'h1',
-      null,
-      app.title
-    ),
-    app.subtitle && React.createElement(
-      'p',
-      null,
-      app.subtitle
-    ),
-    React.createElement(
-      'button',
-      { onClick: removeArray },
-      'Remove All'
-    ),
-    React.createElement(
-      'p',
-      null,
-      app.options.length > 0 ? 'Here are your options' : 'No options'
-    ),
-    React.createElement(
-      'p',
-      null,
-      app.options.length
-    ),
-    React.createElement(
-      'ol',
-      null,
-      app.options.map(function (option) {
-        return React.createElement(
-          'li',
-          { key: option },
-          option
-        );
-      })
-    ),
-    React.createElement(
-      'form',
-      { onSubmit: onFormSubmit },
-      React.createElement('input', { type: 'text', name: 'option' }),
-      React.createElement(
-        'button',
+
+var render = function render() {
+    var template = React.createElement(
+        'div',
         null,
-        'Add Option'
-      )
-    )
-  );
-  ReactDOM.render(template, appRoot);
+        React.createElement(
+            'h1',
+            null,
+            'Visibility Toggle'
+        ),
+        React.createElement(
+            'button',
+            { onClick: toggleState },
+            visibility ? 'Not Visible' : 'Make it Visible'
+        ),
+        visibility && React.createElement(
+            'p',
+            null,
+            'This is the text'
+        )
+    );
+
+    ReactDOM.render(template, appRoot);
 };
 
-renderApp();
+render();
