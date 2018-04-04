@@ -1,9 +1,25 @@
+class IndecisionApp extends React.Component{
+    render(){
+        const title='Indecision App';
+        const subtitle='Put your life in the hands of a computer';
+        const options = ['Option 1', 'Option 2', 'Option 3', '112', '444'];
+        return(
+            <div>
+                <Header title={title} subtitle={subtitle}/>
+                <Action />
+                <Options options={options}/>
+                <AddOption />
+            </div>
+        )
+    }
+}
+
 class Header extends React.Component{
   render(){
       return (
           <div>
-            <h1>Indecision App</h1>
-            <h3>Put the decision in the hands of computer</h3>
+            <h1>{this.props.title}</h1>
+            <h3>{this.props.subtitle}</h3>
           </div>
       );
   }
@@ -16,30 +32,49 @@ class Action extends React.Component{
 }
 
 class Options extends React.Component {
+    constructor(props){
+        super(props);
+        this.handleRemoveAll = this.handleRemoveAll.bind(this);
+    }
+    handleRemoveAll(){
+        console.log(this.props.options);
+    }
     render() {
       return (
         <div>
-          <ol>
-            <li>Option 1</li>
-            <li>Option 2</li>
-          </ol>
+        <button onClick={this.handleRemoveAll}>Remove All</button>
+        <p>{this.props.options.length}</p>
+            {this.props.options.map(
+                (option) => <Option key={option} optionText={option}/>
+            )}
+        
         </div>
-      )
+      );
+    }
+}
+class Option extends React.Component{
+    render(){
+        return (<p>{this.props.optionText}</p>);
     }
 }
 
 class AddOption extends React.Component{
+    handleAddOption(e) {
+        e.preventDefault();
+
+        const option = e.target.elements.option.value.trim();
+        if(option){
+            alert(option);
+        }
+    }
     render(){
-        return <button>Add Option</button>
+        return (<div>
+            <form onSubmit={this.handleAddOption}>
+                <input type='text' name='option'/>
+                <button>Add Option</button>
+            </form>
+            </div>);
     }
 }
-const jsx = (
-    <div>
-        <Header />
-        <Action />
-        <Options />
-        <AddOption />
-    </div>
-);
 
-ReactDOM.render(jsx, document.getElementById('app'));
+ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
