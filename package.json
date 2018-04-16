@@ -1,12 +1,23 @@
 {
+  "scripts": {
+    "serve": "live-server public/",
+    "build": "webpack --watch",
+    "build-babel": "babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch"
+  },
   "dependencies": {
+    "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1"
+    "babel-preset-react": "^6.24.1",
+    "live-server": "^1.2.0",
+    "webpack": "^4.5.0"
   },
   "name": "indecision-app",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/ihassanamjad/react-indecision-app.git",
   "author": "Hassan Amjad",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "webpack-cli": "^2.0.14"
+  }
 }
